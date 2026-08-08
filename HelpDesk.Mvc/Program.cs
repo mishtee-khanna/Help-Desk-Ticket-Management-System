@@ -8,8 +8,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpClient<ITicketService, TicketService>(client =>
 {
-    // The API is expected to be running on localhost:5001 (HTTPS) or localhost:5000 (HTTP)
-    client.BaseAddress = new Uri("https://localhost:5001/");
+    // The API is running on localhost:5145
+    client.BaseAddress = new Uri("http://localhost:5145/");
 });
 
 var app = builder.Build();

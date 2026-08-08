@@ -39,6 +39,9 @@ namespace HelpDesk.Mvc.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Ticket ticket)
         {
+            ModelState.Remove("Status");
+            ModelState.Remove("CreatedDate");
+
             if (ModelState.IsValid)
             {
                 ticket.Status = "Open"; // Hardcoded
@@ -58,6 +61,8 @@ namespace HelpDesk.Mvc.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, Ticket ticket)
         {
+            ModelState.Remove("CreatedDate");
+            
             if (id != ticket.Id) return BadRequest();
 
             if (ModelState.IsValid)
