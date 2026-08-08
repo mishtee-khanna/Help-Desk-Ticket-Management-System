@@ -1,0 +1,55 @@
+@model IEnumerable<HelpDesk.Mvc.Models.Ticket>
+
+@{
+    ViewData["Title"] = "Tickets";
+}
+
+<h1>Tickets</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Raise New Ticket</a>
+</p>
+
+<form asp-action="Index" method="get" class="form-inline mb-3">
+    <div class="form-group mb-2">
+        <label for="status" class="mr-2">Filter by Status:</label>
+        <select name="status" id="status" class="form-control mr-2">
+            <option value="">All</option>
+            <option value="Open" selected="@(ViewBag.SelectedStatus == "Open")">Open</option>
+            <option value="In Progress" selected="@(ViewBag.SelectedStatus == "In Progress")">In Progress</option>
+            <option value="Closed" selected="@(ViewBag.SelectedStatus == "Closed")">Closed</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-secondary mb-2">Filter</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Raised By</th>
+            <th>Created Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Title</td>
+            <td>@item.Priority</td>
+            <td>@item.Status</td>
+            <td>@item.RaisedBy</td>
+            <td>@item.CreatedDate.ToShortDateString()</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
